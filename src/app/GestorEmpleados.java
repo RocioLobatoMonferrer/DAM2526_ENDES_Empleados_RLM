@@ -20,9 +20,12 @@ public class GestorEmpleados {
 	}
 
 	public void ejecutar() {
-		consola.mostrarMenu();
-		int option = consola.leerEntero("Introduce una de las opciones");
+		int option;
+
 		do {
+			consola.mostrarMenu();
+			option = consola.leerEntero("Introduce una de las opciones");
+
 			switch (option) {
 			case 1 -> {
 				contratarEmpleado();
@@ -52,6 +55,7 @@ public class GestorEmpleados {
 		int categoria = 0;
 		int option;
 
+		consola.imprimirLinea("\nSeleccione una de las opciones: ");
 		option = consola.leerEntero("1- Técnico\n2- Comercial");
 		if (option == 1) {
 			dni = consola.leerTexto("DNI: ");
@@ -60,7 +64,6 @@ public class GestorEmpleados {
 			++categoria;
 
 			tec = new Tecnico(dni, nombre, apellidos, sueldoBaseTec, categoria);
-
 			plantilla.agregarEmpleado(tec);
 
 		} else if (option == 2) {
@@ -76,15 +79,27 @@ public class GestorEmpleados {
 
 	private void listarTodos() {
 		List<Empleado> empleados = new ArrayList<>();
-
+		listarEmpleados(empleados);
 	}
 
 	private void listarPorFiltro() {
 		List<Empleado> empleados = new ArrayList<>();
-
+		listarEmpleados(empleados);
 	}
 
 	private void listarEmpleados(List<Empleado> empleados) {
+		ordenarPorNombre(empleados);
+		for (int i = 0; i < empleados.size(); i++) {
+			if (empleados instanceof Tecnico tec) {
+				consola.imprimirLinea("Nombre: " + tec.getNombre() + "\nApellidos: " + tec.getApellidos() + "\nDNI: "
+						+ tec.getDni() + "\nSueldo Base: " + tec.getSueldoBase() + "\nCategoría: ");
+
+			} else if (empleados instanceof Comercial com) {
+				consola.imprimirLinea("Nombre: " + com.getNombre() + "\nApellidos: " + com.getApellidos() + "\nDNI: "
+						+ com.getDni() + "\nSueldo Base: " + com.getSueldoBase() + "\nVentas: ");
+			}
+
+		}
 
 	}
 

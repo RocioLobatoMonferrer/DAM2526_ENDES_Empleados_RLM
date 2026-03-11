@@ -22,8 +22,8 @@ public class Consola implements IEntradaSalida {
 
 	@Override
 	public String leerTexto(String mensaje) {
-		String value = "";
 		imprimirLinea(mensaje);
+		String value = "";
 		do {
 			value = sc.nextLine();
 			if (value.trim().isEmpty()) {
